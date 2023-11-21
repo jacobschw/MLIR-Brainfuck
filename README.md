@@ -1,5 +1,5 @@
 # MLIR Brainfuck
-MLIR Brainfuck is a provisoral Brainfuck compiler based in MLIR
+MLIR Brainfuck is a provisoral Brainfuck compiler based on [MLIR](https://mlir.llvm.org/).
 
 ## Building 
 
@@ -8,7 +8,7 @@ The setup assumes that you have built LLVM and MLIR. To build and lauch tests ru
 ```sh
 mkdir build && cd build
 cmake -G <GENERATOR> -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. -DLLVM_EXTERNAL_LIT=<LLVM_BUILD_DIR>/bin/llvm-lit
-cmake --build . --target check-emitc
+cmake --build . --target check-Bf
 ```
 
 You have to pass the values for <GENERATOR> and <LLVM_BUILD_DIR> accordingly.
@@ -19,7 +19,7 @@ The MLIR Brainfuck projects includes the abstraction layers Bf, OptBf, ExplicitB
 exist conversion passes. The passes are combined by the bf-to-llvm pipeline.
 | option                                     | Description                                                              |
 | :----------------------------------------- |:------------------------------------------------------------------------ |
-| `--bf-to-opf`                              | Convert the fold-able operations of Bf to bf_red                         |
+| `--bf-to-optbf`                            | Convert the fold-able operations of Bf to bf_red                         |
 | `--opfbf-to-explicitbf`                    | Lower OptBf (Bf, bf_red) to ExplicitBf                                   |
 | `--explicitbf-to-llvm`                     | Lower ExplicitBf to the llvm dialect.                                    |
 | `--bf-to-llvm`                             | Combines the passes to lower the Bf dialect to the llvm dialect          |
@@ -27,7 +27,7 @@ exist conversion passes. The passes are combined by the bf-to-llvm pipeline.
 
 ## Tooling
 
-As an example of an out-of-tree [MLIR](https://mlir.llvm.org/) dialect(s) the project contains a Bf `opt`-like tool to operate on that dialect.
+As an example of an out-of-tree MLIR dialect(s) the project contains a Bf `opt`-like tool to operate on that dialect.
 
 Additionally the project contains a Bf-`translate` tool. The --mlir-to-llvmir option translates MLIR IR to LLVM IR.
 
