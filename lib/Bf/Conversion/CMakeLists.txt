@@ -1,0 +1,4 @@
+
+add_subdirectory(BfToOptBf)
+add_subdirectory(BfOptToExplicitBf)
+add_subdirectory(ExplicitBfToLLVM)
