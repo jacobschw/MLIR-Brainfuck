@@ -1,36 +1,45 @@
-# out-of-tree MLIR dialect
+# MLIR Brainfuck
+MLIR Brainfuck is a provisoral Brainfuck compiler based in MLIR
 
-This is an example of an out-of-tree [MLIR](https://mlir.llvm.org/) dialect along with a Bf `opt`-like tool to operate on that dialect.
+## Building 
 
-## Building - Component Build
+The setup assumes that you have built LLVM and MLIR. To build and lauch tests run:
 
-This setup assumes that you have built LLVM and MLIR in `$BUILD_DIR` and installed them to `$PREFIX`. To build and launch the tests, run
 ```sh
 mkdir build && cd build
-cmake -G Ninja .. -DMLIR_DIR=$PREFIX/lib/cmake/mlir -DLLVM_EXTERNAL_LIT=$BUILD_DIR/bin/llvm-lit
-cmake --build . --target check-Bf
+cmake -G <GENERATOR> -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. -DLLVM_EXTERNAL_LIT=<LLVM_BUILD_DIR>/bin/llvm-lit
+cmake --build . --target check-emitc
 ```
-To build the documentation from the TableGen description of the dialect operations, run
+
+You have to pass the values for <GENERATOR> and <LLVM_BUILD_DIR> accordingly.
+
+## Supported Conversions
+
+The MLIR Brainfuck projects includes the abstraction layers Bf, OptBf, ExplicitBf and llvmBf. To convert between the abtractions 
+exist conversion passes. The passes are combined by the bf-to-llvm pipeline.
+| option                                     | Description                                                              |
+| :----------------------------------------- |:------------------------------------------------------------------------ |
+| `--bf-to-opf`                              | Convert the fold-able operations of Bf to bf_red                         |
+| `--opfbf-to-explicitbf`                    | Lower OptBf (Bf, bf_red) to ExplicitBf                                   |
+| `--explicitbf-to-llvm`                     | Lower ExplicitBf to the llvm dialect.                                    |
+| `--bf-to-llvm`                             | Combines the passes to lower the Bf dialect to the llvm dialect          |
+
+
+## Tooling
+
+As an example of an out-of-tree [MLIR](https://mlir.llvm.org/) dialect(s) the project contains a Bf `opt`-like tool to operate on that dialect.
+
+Additionally the project contains a Bf-`translate` tool. The --mlir-to-llvmir option translates MLIR IR to LLVM IR.
+
+To translate Brainfuck source to MLIR Brainfuck representation use the python based tool bf-to-mlir_bf.
+
+Example of a compilation stack for the MLIR-Brainfuck/bf_scripts/hello_world.bf script. 
 ```sh
-cmake --build . --target mlir-doc
+// <path-to-project>/MLIR-Brainfuck/tools
+bf-to-mlir_bf <path-to-project>/bf_scripts/hello_world.bf --output-path=""
+
+// <path-to-project>/MLIR-Brainfuck/build/bin
+Bf-opt --bf-to-llvm <path-to-project>/bf_scripts/hello_world.mlir | Bf-translate --mlir-tollvmir > test.ll
+clang test.ll -o test.exe
+test.exe 
 ```
-**Note**: Make sure to pass `-DLLVM_INSTALL_UTILS=ON` when building LLVM with CMake in order to install `FileCheck` to the chosen installation prefix.
-
-## Building - Monolithic Build
-
-This setup assumes that you build the project as part of a monolithic LLVM build via the `LLVM_EXTERNAL_PROJECTS` mechanism.
-To build LLVM, MLIR, the example and launch the tests run
-```sh
-mkdir build && cd build
-cmake -G Ninja `$LLVM_SRC_DIR/llvm` \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DLLVM_TARGETS_TO_BUILD=host \
-    -DLLVM_ENABLE_PROJECTS=mlir \
-    -DLLVM_EXTERNAL_PROJECTS=Bf-dialect -DLLVM_EXTERNAL_Bf_DIALECT_SOURCE_DIR=../
-cmake --build . --target check-Bf
-```
-Here, `$LLVM_SRC_DIR` needs to point to the root of the monorepo.
-
-## Troubleshooting
-
-    - Conversion Pass Skeleton needs Instantation of impl::<Pass>Base in order to build. 
