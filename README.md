@@ -45,13 +45,13 @@ exist conversion passes. The passes are combined by the bf-to-llvm pipeline.
 
 ## Tooling
 
-As an example of an out-of-tree MLIR dialect(s) the project contains a Bf `opt`-like tool to operate on that dialect.
+As an example of an out-of-tree MLIR dialect the project contains a Bf `opt`-like tool to operate on the dialect.
 
-Additionally the project contains a Bf-`translate` tool. The --mlir-to-llvmir option translates MLIR IR to LLVM IR.
+Additionally the project contains a Bf-`translate` tool. The `--mlir-to-llvmir` option translates MLIR IR to LLVM IR.
 
-To translate Brainfuck source to MLIR Brainfuck representation use the python based tool bf-to-mlir_bf.
+To translate Brainfuck source to MLIR Brainfuck representation use the python based tool `tools/bf-to-mlir_bf`.
 
-Example of a compilation stack for the MLIR-Brainfuck/bf_scripts/hello_world.bf script. 
+The following listing is an example for a compilation stack for the bf_scripts/hello_world.bf script. 
 ```sh
 // <path-to-project>/MLIR-Brainfuck/tools
 bf-to-mlir_bf <path-to-project>/bf_scripts/hello_world.bf --output-path=""
