@@ -12,7 +12,7 @@ cmake --build . --target check-Bf --config <BUILD_TYPE>
 ```
 
 You have to pass the values for <GENERATOR>, <LLVM_BUILD_DIR> and <BUILD_TYPE> accordingly.
-Make sure that your llvm and mlir built type matches your selected built type. 
+Make sure that your llvm and mlir build type matches your selected build type. 
 
 | target                                     | Description                                                              |
 | :----------------------------------------- |:------------------------------------------------------------------------ |
