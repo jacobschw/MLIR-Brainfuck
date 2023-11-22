@@ -7,12 +7,18 @@ The setup assumes that you have built LLVM and MLIR. To build and lauch tests ru
 
 ```sh
 mkdir build && cd build
+// Configure the build
 cmake -G <GENERATOR> -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. -DLLVM_EXTERNAL_LIT=<LLVM_BUILD_DIR>/bin/llvm-lit -DCMAKE_BUILD_TYPE=<BUILD_TYPE>
+
+// Build the target check-Bf
 cmake --build . --target check-Bf --config <BUILD_TYPE>
 ```
 
 You have to pass the values for <GENERATOR>, <LLVM_BUILD_DIR> and <BUILD_TYPE> accordingly.
 Make sure that your llvm and mlir build type matches your selected build type. 
+
+The following table shows some supported build targets of the project. To build one of them (f.e. `my-target`) replace `check-Bf`
+with `my-target` in the above build command. 
 
 | target                                     | Description                                                              |
 | :----------------------------------------- |:------------------------------------------------------------------------ |
