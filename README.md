@@ -14,7 +14,7 @@ cmake -G <GEN> -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. -DLLVM_E
 cmake --build . --target check-Bf --config <BUILD_TYPE>
 ```
 
-You have to pass the values for <GEN>, <LLVM_BUILD_DIR> and <BUILD_TYPE> accordingly.
+You have to pass the values for `<GEN>`, `<LLVM_BUILD_DIR>` and `<BUILD_TYPE>` accordingly.
 Make sure that your llvm and mlir build type matches your selected build type. 
 
 The following table shows some supported build targets of the project. To build one of them (f.e. `my-target`) replace `check-Bf`
