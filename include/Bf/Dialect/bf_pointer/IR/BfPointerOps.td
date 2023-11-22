@@ -23,7 +23,7 @@ def Bf_read_ptr : BfPointer_Op<"read_ptr", [DeclareOpInterfaceMethods<SymbolUser
     let assemblyFormat = "attr-dict `:` functional-type(operands, results)";
 }
 
-def Bf_write_ptr : BfPointer_Op<"write_ptr"> {
+def Bf_write_ptr : BfPointer_Op<"write_ptr", [DeclareOpInterfaceMethods<SymbolUserOpInterface>]> {
     let summary = "Write a new value of index type to the Brainfuck pointer.";
 
     let arguments = (ins FlatSymbolRefAttr:$name,
