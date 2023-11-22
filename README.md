@@ -7,11 +7,23 @@ The setup assumes that you have built LLVM and MLIR. To build and lauch tests ru
 
 ```sh
 mkdir build && cd build
-cmake -G <GENERATOR> -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. -DLLVM_EXTERNAL_LIT=<LLVM_BUILD_DIR>/bin/llvm-lit
-cmake --build . --target check-Bf
+cmake -G <GENERATOR> -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. -DLLVM_EXTERNAL_LIT=<LLVM_BUILD_DIR>/bin/llvm-lit -DCMAKE_BUILD_TYPE=<BUILD_TYPE>
+cmake --build . --target check-Bf --config <BUILD_TYPE>
 ```
 
-You have to pass the values for <GENERATOR> and <LLVM_BUILD_DIR> accordingly.
+You have to pass the values for <GENERATOR>, <LLVM_BUILD_DIR> and <BUILD_TYPE> accordingly.
+Make sure that your llvm and mlir built type matches your selected built type. 
+
+| target                                     | Description                                                              |
+| :----------------------------------------- |:------------------------------------------------------------------------ |
+| `Bf-opt`                                   | Build the Bf-opt tool.                                                   |
+| `Bf-translate`                             | Build the Bf-translate tool.                                             |
+| `check-Bf`                                 | Build the Bf-opt tool and execute all tests.                             |
+| `MLIRBfOpsIncGen`                          | Generate Cpp code for the Bf dialect.                                    |
+| `MLIRBfPointerOpsIncGen`                   | Generate Cpp code for the bf_pointer dialect.                            |
+| `MLIRBfRedOpsIncGen`                       | Generate Cpp code for the bf_red dialect.                                |
+| `MLIRBfConversionPassIncGen`               | Generate Cpp code for the conversion passes.                             |
+
 
 ## Supported Conversions
 
