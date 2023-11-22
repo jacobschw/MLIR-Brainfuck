@@ -34,7 +34,7 @@ with `my-target` in the above build command.
 ## Supported Conversions
 
 The MLIR Brainfuck projects includes the abstraction layers Bf, OptBf, ExplicitBf and llvmBf. To convert between the abtractions 
-exist conversion passes. The passes are combined by the bf-to-llvm pipeline.
+there are conversion passes. The passes are combined by the bf-to-llvm pipeline.
 | option                                     | Description                                                              |
 | :----------------------------------------- |:------------------------------------------------------------------------ |
 | `--bf-to-optbf`                            | Convert the fold-able operations of Bf to bf_red                         |
@@ -47,11 +47,11 @@ exist conversion passes. The passes are combined by the bf-to-llvm pipeline.
 
 As an example of an out-of-tree MLIR dialect the project contains a Bf `opt`-like tool to operate on the dialect.
 
-Additionally the project contains a Bf-`translate` tool. The `--mlir-to-llvmir` option translates MLIR IR to LLVM IR.
+Additionally, the project contains a Bf-`translate` tool. The `--mlir-to-llvmir` option translates MLIR IR to LLVM IR.
 
 To translate Brainfuck source to MLIR Brainfuck representation use the python based tool `tools/bf-to-mlir_bf`.
 
-The following listing is an example for a compilation stack for the bf_scripts/hello_world.bf script. 
+The following listing is an example for a compilation stack for `bf_scripts/hello_world.bf`. 
 ```sh
 // <path-to-project>/MLIR-Brainfuck/tools
 bf-to-mlir_bf <path-to-project>/bf_scripts/hello_world.bf --output-path=""
